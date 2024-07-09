@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  database:
+    image: mysql:5.7
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: agm
+
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: jdbc:mysql://localhost:3306/agm
+    depends_on:
+      - database
