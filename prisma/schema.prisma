@@ -21,8 +21,8 @@ model CarCompany {
 
 model CarType {
   id        Int        @id @default(autoincrement())
-  name      String
-  companyId Int
+  name      String     @unique
+  companyId Int        @unique
   company   CarCompany @relation(fields: [companyId], references: [id])
   cars      Car[]
 }
