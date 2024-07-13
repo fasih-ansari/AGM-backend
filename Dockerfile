@@ -1,10 +1,11 @@
 # Use an official Node runtime as a parent image
-FROM node:20
+FROM node:18
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and yarn.lock
+# Copy package.json and package-lock.json before other files
+# Utilize Docker cache to save re-installing dependencies if unchanged
 COPY package.json yarn.lock ./
 
 # Install dependencies
@@ -17,7 +18,7 @@ COPY . .
 RUN yarn prisma generate
 
 # Expose the port the app runs on
-EXPOSE 3000
+EXPOSE 5000
 
 # Define the command to run the app
-CMD ["yarn", "start:prod"]
+CMD ["yarn", "start:dev"]
